@@ -10,7 +10,7 @@ class Calculator {
     this.operation = undefined;
   }
   delete() {
-    console.log("delete");
+    this.currentOperand = this.currentOperand.toString().slice(0, -1);
   }
   chooseOperand(operation) {
     if (this.currentOperand === "") return;
@@ -22,7 +22,31 @@ class Calculator {
     this.currentOperand = "";
   }
   compute() {
-    console.log("compute");
+    let computation = null;
+    const prev = parseFloat(this.previousOperand);
+    const current = parseFloat(this.currentOperand);
+    if (isNaN(prev) || isNaN(current)) return;
+    switch (this.operation) {
+      case "+":
+        computation = prev + current;
+        break;
+      case "-":
+        computation = prev - current;
+        break;
+      case "*":
+        computation = prev * current;
+        break;
+      case "/":
+        computation = prev / current;
+        break;
+
+      default:
+        return;
+        break;
+    }
+    this.currentOperand = computation;
+    this.previousOperand = "";
+    this.operation = undefined;
   }
   appendNumber(value) {
     // if Current Operand had (.) Dont Add It Again
